@@ -3,8 +3,8 @@ import tkinter as tk
 from tkinter import filedialog
 import pandas as pd
 import random
-import numpy as np
 import ntpath
+import numpy as np
 
 
 class StartPage(tk.Frame):
@@ -37,25 +37,27 @@ class StartPage(tk.Frame):
         # self.setup_window()
 
     def generateRandomAssign(self):
-        student_file = pd.read_csv(self.student_file_path.get())
-        colour_file = pd.read_csv(self.colour_file_path.get())
-        # student_file = pd.read_csv("H:/PhDFiles/PhD/Code/RanAssignGenerator/Result/345_student.csv")
-        # colour_file = pd.read_csv("H:/PhDFiles/PhD/Code/RanAssignGenerator/Result/ral_standard.csv")
+        # student_file = pd.read_csv(self.student_file_path.get())
+        # colour_file = pd.read_csv(self.colour_file_path.get())
+        student_file = pd.read_csv("H:/PhDFiles/PhD/COMPSCI345_SOFTENG350/RanAssignGenerator/Data/345_student.csv")
+        colour_file = pd.read_csv("H:/PhDFiles/PhD/COMPSCI345_SOFTENG350/RanAssignGenerator/Data/ral_standard.csv")
 
         file_name = os.path.basename(self.student_file_path.get())
 
-        student_ids = student_file[student_file['SIS User ID'].notna()]['SIS User ID'].astype(np.int32)
-        colour_code = colour_file['HEX']
+        student_ids = student_file[student_file['SIS User ID'].notna()]['SIS Login ID']
+
+        colour_code = colour_file[~colour_file[' English'].str.contains('grey|black|white')]['HEX']
+        print(colour_code)
 
         result_data = pd.DataFrame(columns=['Student_ID', 'Colour HEX'])
 
         for index, student in student_ids.items():
             result_data = result_data.append(
-                pd.DataFrame([[student, random.choice(colour_code)]], columns=result_data.columns))
+                pd.DataFrame([[student, random.choice(colour_code.tolist())]], columns=result_data.columns))
 
         print(result_data)
 
-        result_data.to_csv("H:/PhDFiles/PhD/Code/RanAssignGenerator/Result/Result_" + file_name, index=False)
+        result_data.to_csv(os.getcwd() + "/Result/Result_.csv" + file_name, index=False)
 
 
 def browse_btn_hit(folder_path):

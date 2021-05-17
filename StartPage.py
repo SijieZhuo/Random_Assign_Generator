@@ -37,10 +37,10 @@ class StartPage(tk.Frame):
         # self.setup_window()
 
     def generateRandomAssign(self):
-        # student_file = pd.read_csv(self.student_file_path.get())
-        # colour_file = pd.read_csv(self.colour_file_path.get())
-        student_file = pd.read_csv("H:/PhDFiles/PhD/COMPSCI345_SOFTENG350/RanAssignGenerator/Data/345_student.csv")
-        colour_file = pd.read_csv("H:/PhDFiles/PhD/COMPSCI345_SOFTENG350/RanAssignGenerator/Data/ral_standard.csv")
+        student_file = pd.read_csv(self.student_file_path.get())
+        colour_file = pd.read_csv(self.colour_file_path.get())
+        # student_file = pd.read_csv("H:/PhDFiles/PhD/COMPSCI345_SOFTENG350/RanAssignGenerator/Data/345_student.csv")
+        # colour_file = pd.read_csv("H:/PhDFiles/PhD/COMPSCI345_SOFTENG350/RanAssignGenerator/Data/ral_standard.csv")
 
         file_name = os.path.basename(self.student_file_path.get())
 
@@ -57,7 +57,7 @@ class StartPage(tk.Frame):
 
         print(result_data)
 
-        result_data.to_csv(os.getcwd() + "/Result/Result_.csv" + file_name, index=False)
+        result_data.to_csv(os.getcwd() + "/Result/Result_" + file_name, index=False)
 
 
 def browse_btn_hit(folder_path):
